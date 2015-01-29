@@ -15,7 +15,7 @@
 			<scope>test</scope>
 		</dependency>
 
-		
+
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-webmvc</artifactId>
@@ -44,5 +44,26 @@
 	</dependencies>
 	<build>
 		<finalName>springmvc</finalName>
+		<plugins>
+			<plugin>
+				<groupId>org.mortbay.jetty</groupId>
+				<artifactId>jetty-maven-plugin</artifactId>
+				<version>8.0.0.M2</version>
+				<configuration>
+					<webApp>${basedir}/target/auth.war</webApp>
+					<webAppSourceDirectory>${basedir}/webapp</webAppSourceDirectory>
+					<scanIntervalSeconds>5</scanIntervalSeconds>
+					<!-- <webDefaultXml>${basedir}/src/main/resources/webdefault.xml</webDefaultXml> -->
+					<connectors>
+						<connector implementation="org.eclipse.jetty.server.nio.SelectChannelConnector">
+							<port>9001</port>
+							<maxIdleTime>10000</maxIdleTime>
+						</connector>
+					</connectors>
+					<stopPort>9966</stopPort>
+					<stopKey>foo</stopKey>
+				</configuration>
+			</plugin>
+		</plugins>
 	</build>
 </project>
